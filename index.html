@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HDX-EV160 | HDX 16톤급 전동지게차</title>
+<title>HDX-EV050 | HDX 5톤급 전동지게차</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
@@ -287,6 +288,44 @@
   .reveal.in-view{opacity:1;transform:translateY(0);}
   .reveal-stagger > *{transition-delay:calc(var(--i,0) * 90ms);}
 
+  /* ===== 갤러리(제품 이미지) 섹션 ===== */
+  .gallery{background:var(--offwhite);padding:4.5rem 0 5rem;}
+  .gallery-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+  .gallery-head h2{margin-bottom:0;}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:1.2rem;
+  }
+  .gallery-frame{
+    position:relative;
+    overflow:hidden;
+    border-radius:10px;
+    border:1px solid #e7e2d4;
+    background:#fff;
+  }
+  .gallery-frame img{
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .6s ease;
+  }
+  .gallery-frame:hover img{transform:scale(1.05);}
+  .gallery-frame.main{aspect-ratio:4/3;}
+  .gallery-frame.side{aspect-ratio:4/3;}
+  .gallery-tag{
+    position:absolute;top:0;left:0;
+    background:var(--yellow);color:var(--black);
+    font-family:var(--font-mono);font-size:.7rem;font-weight:700;
+    padding:.35rem .8rem;
+    border-radius:0 0 8px 0;
+    z-index:2;
+  }
+  .gallery-caption{
+    margin-top:1.2rem;font-size:.85rem;color:var(--steel);
+    font-family:var(--font-mono);
+  }
+
   /* ===== 인트로/스탯 섹션 ===== */
   .intro{padding:5rem 0;background:var(--offwhite);}
   .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
@@ -504,6 +543,7 @@
     <nav class="main-menu" id="mainMenu">
       <ul>
         <li><a href="#overview" class="nav-link">개요</a></li>
+        <li><a href="#gallery" class="nav-link">제품 이미지</a></li>
         <li><a href="#specs" class="nav-link">제원</a></li>
         <li><a href="#features" class="nav-link">특징</a></li>
         <li><a href="#battery" class="nav-link">전동시스템</a></li>
@@ -520,6 +560,7 @@
 <nav class="bookmark-nav" id="bookmarkNav">
   <a class="tab" data-target="hero">TOP</a>
   <a class="tab" data-target="overview">개요</a>
+  <a class="tab" data-target="gallery">이미지</a>
   <a class="tab" data-target="specs">제원</a>
   <a class="tab" data-target="features">특징</a>
   <a class="tab" data-target="battery">전동</a>
@@ -531,15 +572,15 @@
 <section class="hero" id="hero">
   <div class="container hero-grid">
     <div>
-      <span class="eyebrow">HDX ELECTRIC HEAVY LINEUP</span>
-      <h1>16톤의 무게,<em>0의 배출가스.</em></h1>
-      <p class="lead">HDX-EV160은 항만·중공업 현장의 초중량 하역 작업을 위해 설계된 16톤급 전동지게차입니다. 디젤 엔진 없이도 타협하지 않는 힘을 증명합니다.</p>
+      <span class="eyebrow">HDX ELECTRIC LINEUP</span>
+      <h1>5톤의 무게,<em>0의 배출가스.</em></h1>
+      <p class="lead">HDX-EV050은 물류센터와 중소형 제조 현장의 정밀 하역 작업을 위해 설계된 5톤급 전동지게차입니다. 디젤 엔진 없이도 타협하지 않는 힘을 증명합니다.</p>
       <div class="hero-cta">
         <a href="#specs" class="btn btn-primary">제원 살펴보기</a>
         <a href="#contact" class="btn btn-outline">견적 문의</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><b data-count="16">0</b><span>정격 하중(톤)</span></div>
+        <div class="stat"><b data-count="5">0</b><span>정격 하중(톤)</span></div>
         <div class="stat"><b data-count="0" data-suffix="%">0</b><span>배기가스 배출</span></div>
         <div class="stat"><b data-count="8">0</b><span>완충 가동시간(h)</span></div>
       </div>
@@ -559,6 +600,30 @@
 </section>
 <div class="hazard"></div>
 
+<!-- ===== 제품 이미지 갤러리 ===== -->
+<section class="gallery reveal" id="gallery">
+  <div class="container">
+    <div class="gallery-head">
+      <div>
+        <span class="eyebrow">GALLERY</span>
+        <h2>HDX-EV050 실제 차체 이미지</h2>
+      </div>
+      <p class="section-sub" style="max-width:360px;">현장 투입 전, 실제 차체 외관을 미리 확인해보세요.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-frame main">
+        <span class="gallery-tag">FRONT VIEW</span>
+        <img src="https://www.hd-xitesolution.com/attachments/gSTQO267LwtCJILE" alt="HDX-EV050 전동지게차 정면 이미지" loading="lazy">
+      </div>
+      <div class="gallery-frame side">
+        <span class="gallery-tag">SIDE VIEW</span>
+        <img src="https://www.hd-xitesolution.com/attachments/bhox9LDt25SUWcs7" alt="HDX-EV050 전동지게차 측면 이미지" loading="lazy">
+      </div>
+    </div>
+    <p class="gallery-caption">이미지 출처: HD현대사이트솔루션 제품 페이지 (실습 예제 목적, 실제 5톤급 제품과 차체 형상이 다를 수 있습니다.)</p>
+  </div>
+</section>
+
 <!-- ===== 개요 & 핵심지표 ===== -->
 <section class="intro" id="overview">
   <div class="container">
@@ -566,14 +631,14 @@
       <div class="intro-text reveal">
         <span class="eyebrow">OVERVIEW</span>
         <h2>현장의 무게중심을 그대로,<br>동력만 바꿨습니다.</h2>
-        <p>HDX-EV160은 기존 디젤 16톤 지게차의 작업 성능을 그대로 계승하면서, 구동계 전체를 전동화한 모델입니다. 저중심 배터리 배치로 안정적인 중량물 리프팅이 가능하며, 실내외 구분 없이 투입할 수 있습니다.</p>
-        <p>대형 항만 터미널, 중공업 야드, 철강·조선 자재 이동 등 고하중·고빈도 작업 환경에서의 연속 가동성을 검증했습니다.</p>
+        <p>HDX-EV050은 기존 디젤 5톤 지게차의 작업 성능을 그대로 계승하면서, 구동계 전체를 전동화한 모델입니다. 콤팩트한 차체와 저중심 배터리 배치로 좁은 통로에서도 안정적인 리프팅이 가능하며, 실내외 구분 없이 투입할 수 있습니다.</p>
+        <p>물류센터, 유통센터, 중소형 제조 공장 등 회전율이 높은 작업 환경에서의 연속 가동성을 검증했습니다.</p>
       </div>
       <div class="stat-cards reveal reveal-stagger">
-        <div class="stat-card" style="--i:0"><div class="num">16,000<span style="font-size:1rem;">kg</span></div><div class="label">최대 정격 하중</div></div>
-        <div class="stat-card" style="--i:1"><div class="num">6,900<span style="font-size:1rem;">mm</span></div><div class="label">표준 리프트 높이</div></div>
-        <div class="stat-card" style="--i:2"><div class="num">72<span style="font-size:1rem;">dB</span></div><div class="label">운행 소음(저소음)</div></div>
-        <div class="stat-card" style="--i:3"><div class="num">4.2<span style="font-size:1rem;">m</span></div><div class="label">최소 회전 반경</div></div>
+        <div class="stat-card" style="--i:0"><div class="num">5,000<span style="font-size:1rem;">kg</span></div><div class="label">최대 정격 하중</div></div>
+        <div class="stat-card" style="--i:1"><div class="num">3,700<span style="font-size:1rem;">mm</span></div><div class="label">표준 리프트 높이</div></div>
+        <div class="stat-card" style="--i:2"><div class="num">68<span style="font-size:1rem;">dB</span></div><div class="label">운행 소음(저소음)</div></div>
+        <div class="stat-card" style="--i:3"><div class="num">2.6<span style="font-size:1rem;">m</span></div><div class="label">최소 회전 반경</div></div>
       </div>
     </div>
   </div>
@@ -584,21 +649,21 @@
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">SPECIFICATIONS</span>
-      <h2>HDX-EV160 제원</h2>
-      <p class="section-sub">중량물 작업 현장 기준으로 설계된 주요 사양입니다.</p>
+      <h2>HDX-EV050 제원</h2>
+      <p class="section-sub">현장 회전율이 높은 작업장 기준으로 설계된 주요 사양입니다.</p>
     </div>
     <table class="spec-table reveal">
       <tbody>
-        <tr><td>최대 정격 하중</td><td>16,000 <span>kg</span></td></tr>
+        <tr><td>최대 정격 하중</td><td>5,000 <span>kg</span></td></tr>
         <tr><td>구동 방식</td><td>완전 전동 (AC 모터 듀얼 구동)</td></tr>
-        <tr><td>배터리 용량</td><td>420 <span>kWh, 리튬인산철(LFP)</span></td></tr>
-        <tr><td>표준 리프트 높이</td><td>6,900 <span>mm</span></td></tr>
-        <tr><td>최고 주행 속도</td><td>28 <span>km/h</span></td></tr>
-        <tr><td>최소 회전 반경</td><td>4.2 <span>m</span></td></tr>
-        <tr><td>공차 중량</td><td>24,300 <span>kg</span></td></tr>
-        <tr><td>완속 완충 시간</td><td>4.5 <span>h</span></td></tr>
-        <tr><td>급속 충전(80%)</td><td>1.2 <span>h</span></td></tr>
-        <tr><td>운행 소음</td><td>72 <span>dB(A) 이하</span></td></tr>
+        <tr><td>배터리 용량</td><td>150 <span>kWh, 리튬인산철(LFP)</span></td></tr>
+        <tr><td>표준 리프트 높이</td><td>3,700 <span>mm</span></td></tr>
+        <tr><td>최고 주행 속도</td><td>24 <span>km/h</span></td></tr>
+        <tr><td>최소 회전 반경</td><td>2.6 <span>m</span></td></tr>
+        <tr><td>공차 중량</td><td>7,200 <span>kg</span></td></tr>
+        <tr><td>완속 완충 시간</td><td>5 <span>h</span></td></tr>
+        <tr><td>급속 충전(80%)</td><td>1.5 <span>h</span></td></tr>
+        <tr><td>운행 소음</td><td>68 <span>dB(A) 이하</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -629,11 +694,11 @@
     <div class="battery-grid">
       <div class="reveal">
         <span class="eyebrow">POWER SYSTEM</span>
-        <h2>충전 4.5시간,<br>가동 8시간 이상.</h2>
+        <h2>충전 5시간,<br>가동 8시간 이상.</h2>
         <p class="section-sub">현장 근무 시간에 맞춘 완속·급속 충전 옵션을 함께 제공합니다.</p>
         <div class="battery-facts">
-          <div><b>420kWh</b><span>배터리 용량</span></div>
-          <div><b>1.2h</b><span>급속 충전(80%)</span></div>
+          <div><b>150kWh</b><span>배터리 용량</span></div>
+          <div><b>1.5h</b><span>급속 충전(80%)</span></div>
           <div><b>8h+</b><span>완충 시 연속 가동</span></div>
         </div>
       </div>
@@ -653,12 +718,12 @@
     <div class="section-head reveal">
       <span class="eyebrow">WHERE IT WORKS</span>
       <h2>고하중이 일상인 현장에</h2>
-      <p class="section-sub">HDX-EV160이 실제로 투입되는 대표 작업 환경입니다.</p>
+      <p class="section-sub">HDX-EV050이 실제로 투입되는 대표 작업 환경입니다.</p>
     </div>
     <div class="uc-grid reveal reveal-stagger">
-      <div class="uc-card" style="--i:0"><span class="tag">PORT</span><div class="uc-icon">⚓</div><h3>항만 컨테이너 터미널</h3><p>고빈도 상·하차 작업에서도 안정적인 전력 공급으로 연속 가동을 지원합니다.</p></div>
-      <div class="uc-card" style="--i:1"><span class="tag">STEEL</span><div class="uc-icon">🏭</div><h3>철강·조선 야적장</h3><p>중량 코일·후판 이송에 필요한 고토크를 정숙하게 전달합니다.</p></div>
-      <div class="uc-card" style="--i:2"><span class="tag">LOGISTICS</span><div class="uc-icon">📦</div><h3>대형 물류센터</h3><p>실내 저소음 운행이 가능해 24시간 물류 거점에도 적합합니다.</p></div>
+      <div class="uc-card" style="--i:0"><span class="tag">LOGISTICS</span><div class="uc-icon">📦</div><h3>물류센터 상·하차장</h3><p>좁은 통로와 도크에서도 민첩하게 움직이며 저소음으로 실내 작업에 적합합니다.</p></div>
+      <div class="uc-card" style="--i:1"><span class="tag">RETAIL</span><div class="uc-icon">🏬</div><h3>대형 유통·물류 매장</h3><p>고빈도 입출고 작업에서도 안정적인 전력 공급으로 연속 가동을 지원합니다.</p></div>
+      <div class="uc-card" style="--i:2"><span class="tag">FACTORY</span><div class="uc-icon">🏭</div><h3>중소형 제조 공장</h3><p>컴팩트한 차체로 생산라인 사이 자재 이동에 유연하게 대응합니다.</p></div>
     </div>
   </div>
 </section>
@@ -828,3 +893,4 @@
 </script>
 </body>
 </html>
+```
