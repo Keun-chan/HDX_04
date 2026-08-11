@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HDX-EV160 | HDX 16톤급 전동지게차</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFC72C;
+    --yellow-deep:#F0A400;
+    --black:#141311;
+    --charcoal:#232220;
+    --steel:#4A4844;
+    --offwhite:#F6F3EA;
+    --teal:#00C6A2;
+    --teal-deep:#00A085;
+    --danger:#E23B2E;
+    --font-body:'Nanum Gothic', sans-serif;
+    --font-mono:'Nanum Gothic Coding', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    background:var(--offwhite);
+    color:var(--black);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  section{position:relative;}
+  .container{
+    width:min(1120px, 92%);
+    margin:0 auto;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.8rem;
+    letter-spacing:.18em;
+    color:var(--teal-deep);
+    font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:.6rem;
+    display:inline-block;
+  }
+  h1,h2,h3{font-weight:800;letter-spacing:-.01em;}
+  h2{font-size:clamp(1.7rem,3.4vw,2.5rem);margin-bottom:.5rem;}
+  .section-head{margin-bottom:2.6rem;max-width:640px;}
+  .section-sub{color:var(--steel);font-size:1.02rem;}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.95rem 1.7rem;
+    font-weight:700;
+    border-radius:2px;
+    border:2px solid var(--black);
+    cursor:pointer;
+    font-family:var(--font-body);
+    font-size:1rem;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+  }
+  .btn-primary{background:var(--yellow);color:var(--black);}
+  .btn-primary:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--black);}
+  .btn-outline{background:transparent;color:var(--offwhite);border-color:var(--offwhite);}
+  .btn-outline:hover{background:var(--offwhite);color:var(--black);}
+  .btn-teal{background:var(--teal);border-color:var(--black);color:var(--black);}
+  .btn-teal:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--black);}
+
+  /* ===== 해저드 스트라이프 (시그니처 요소) ===== */
+  .hazard{
+    height:14px;
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--black), var(--black) 16px,
+      var(--yellow) 16px, var(--yellow) 32px
+    );
+  }
+  .hazard.thin{height:8px;}
+
+  /* ===== 상단 네비게이션 ===== */
+  header.topbar{
+    position:fixed;top:0;left:0;right:0;
+    z-index:200;
+    background:rgba(20,19,17,.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,199,44,.25);
+    transition:padding .3s ease;
+  }
+  .topbar-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.05rem 0;
+    transition:padding .3s ease;
+  }
+  header.topbar.shrink .topbar-inner{padding:.6rem 0;}
+  .logo{
+    display:flex;align-items:center;gap:.55rem;
+    font-weight:800;color:var(--offwhite);font-size:1.15rem;letter-spacing:.02em;
+  }
+  .logo .mark{
+    width:34px;height:34px;background:var(--yellow);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-mono);font-weight:700;color:var(--black);
+    clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%);
+  }
+  .logo .sub{font-family:var(--font-mono);font-size:.62rem;color:var(--teal);letter-spacing:.1em;display:block;font-weight:400;}
+  nav.main-menu ul{display:flex;gap:2rem;}
+  nav.main-menu a{
+    color:var(--offwhite);font-size:.92rem;font-weight:700;
+    position:relative;padding-bottom:4px;
+  }
+  nav.main-menu a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--yellow);
+    transition:width .25s ease;
+  }
+  nav.main-menu a:hover::after,nav.main-menu a.active::after{width:100%;}
+  .menu-toggle{display:none;background:none;border:none;color:var(--offwhite);font-size:1.6rem;cursor:pointer;}
+
+  /* ===== 책갈피(사이드 북마크) 네비게이션 ===== */
+  .bookmark-nav{
+    position:fixed;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:190;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .bookmark-nav .tab{
+    font-family:var(--font-mono);
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+    background:var(--black);
+    color:var(--yellow);
+    border:1px solid var(--yellow);
+    border-right:none;
+    padding:.85rem .5rem;
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.12em;
+    cursor:pointer;
+    transform:translateX(28px);
+    transition:transform .3s ease, background .3s ease, color .3s ease;
+    border-radius:4px 0 0 4px;
+  }
+  .bookmark-nav .tab:hover{transform:translateX(0);}
+  .bookmark-nav .tab.active{
+    transform:translateX(0);
+    background:var(--teal);
+    border-color:var(--teal);
+    color:var(--black);
+  }
+
+  /* ===== 히어로 ===== */
+  .hero{
+    background:var(--black);
+    color:var(--offwhite);
+    padding:9.5rem 0 5rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 78% 30%, rgba(0,198,162,.16), transparent 55%),
+      radial-gradient(ellipse at 15% 85%, rgba(255,199,44,.1), transparent 50%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative;z-index:2;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:3rem;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem,5vw,3.6rem);
+    line-height:1.15;
+    margin-bottom:1.1rem;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--yellow);
+    display:block;
+  }
+  .hero p.lead{
+    color:#cfcbc0;
+    font-size:1.08rem;
+    max-width:520px;
+    margin-bottom:2rem;
+  }
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.6rem;}
+  .hero-stats{display:flex;gap:2.2rem;flex-wrap:wrap;}
+  .hero-stats .stat b{
+    font-family:var(--font-mono);
+    display:block;font-size:1.7rem;color:var(--yellow);
+  }
+  .hero-stats .stat span{font-size:.78rem;color:#a9a49a;letter-spacing:.03em;}
+
+  /* 지게차 리프트 애니메이션 그래픽 */
+  .rig{
+    position:relative;
+    height:380px;
+    display:flex;align-items:flex-end;justify-content:center;
+  }
+  .rig .ground{
+    position:absolute;bottom:36px;left:0;right:0;height:2px;
+    background:linear-gradient(90deg, transparent, rgba(255,199,44,.5), transparent);
+  }
+  .rig .body{
+    position:relative;
+    width:190px;height:150px;
+    background:var(--yellow);
+    border:3px solid var(--black);
+    border-radius:6px 6px 2px 2px;
+    margin-bottom:36px;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.6);
+  }
+  .rig .body::before{ /* cabin */
+    content:"";position:absolute;top:-58px;left:14px;width:90px;height:60px;
+    background:var(--charcoal);
+    border:3px solid var(--black);
+    border-bottom:none;
+    border-radius:6px 6px 0 0;
+  }
+  .rig .body::after{ /* stripe */
+    content:"";position:absolute;bottom:14px;left:0;right:0;height:14px;
+    background:repeating-linear-gradient(-45deg, var(--black) 0 6px, transparent 6px 12px);
+    opacity:.5;
+  }
+  .rig .wheel{
+    position:absolute;bottom:-18px;width:44px;height:44px;border-radius:50%;
+    background:var(--black);border:5px solid var(--steel);
+  }
+  .rig .wheel.left{left:14px;}
+  .rig .wheel.right{right:14px;}
+  .rig .mast{
+    position:absolute;left:-8px;bottom:0;
+    width:14px;height:230px;
+    background:var(--steel);
+    border-radius:2px;
+    box-shadow:inset -3px 0 0 var(--black);
+  }
+  .rig .mast::before{
+    content:"";position:absolute;left:-14px;top:0;width:14px;height:100%;
+    background:var(--steel);
+    box-shadow:inset -3px 0 0 var(--black);
+    border-radius:2px;
+  }
+  .rig .carriage{
+    position:absolute;left:-30px;bottom:0;
+    width:40px;height:10px;
+    background:var(--black);
+    animation:liftMove 4.5s ease-in-out infinite;
+  }
+  .rig .fork{
+    position:absolute;left:-70px;bottom:-2px;
+    width:44px;height:8px;background:var(--black);
+  }
+  .rig .fork::after{
+    content:"";position:absolute;left:0;bottom:0;width:8px;height:60px;background:var(--black);
+  }
+  .rig .carriage{animation:liftMove 4.5s ease-in-out infinite;}
+  .rig .fork{animation:liftMove 4.5s ease-in-out infinite;}
+  @keyframes liftMove{
+    0%,100%{transform:translateY(0);}
+    45%{transform:translateY(-140px);}
+    55%{transform:translateY(-140px);}
+  }
+  .rig .glow{
+    position:absolute;bottom:60px;left:50%;translate:-50% 0;
+    width:8px;height:8px;border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 18px 6px rgba(0,198,162,.7);
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.4;transform:translate(-50%,0) scale(.8);}50%{opacity:1;transform:translate(-50%,0) scale(1.3);}}
+
+  /* ===== 리빌(스크롤 등장) ===== */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .reveal-stagger > *{transition-delay:calc(var(--i,0) * 90ms);}
+
+  /* ===== 인트로/스탯 섹션 ===== */
+  .intro{padding:5rem 0;background:var(--offwhite);}
+  .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+  .intro-text p{color:var(--steel);margin-bottom:1rem;font-size:1.02rem;}
+  .stat-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .stat-card{
+    background:var(--black);color:var(--offwhite);
+    padding:1.5rem 1.3rem;border-radius:6px;
+    border-left:5px solid var(--yellow);
+  }
+  .stat-card .num{
+    font-family:var(--font-mono);font-size:2.1rem;color:var(--yellow);font-weight:700;
+  }
+  .stat-card .label{font-size:.82rem;color:#c9c4b8;margin-top:.3rem;}
+
+  /* ===== 스펙 섹션 ===== */
+  .specs{background:var(--charcoal);color:var(--offwhite);padding:5.5rem 0;}
+  .specs .section-sub{color:#b8b3a6;}
+  .spec-table{
+    width:100%;border-collapse:collapse;
+    font-family:var(--font-mono);
+    margin-top:1rem;
+  }
+  .spec-table tr{border-bottom:1px solid rgba(255,255,255,.12);}
+  .spec-table tr:hover{background:rgba(255,199,44,.06);}
+  .spec-table td{padding:1.05rem .5rem;}
+  .spec-table td:first-child{
+    color:#a9a49a;font-size:.85rem;letter-spacing:.03em;width:42%;
+  }
+  .spec-table td:last-child{
+    font-size:1.15rem;font-weight:700;color:var(--yellow);text-align:right;
+  }
+  .spec-table td:last-child span{color:#8f8b80;font-size:.8rem;font-weight:400;margin-left:.4rem;}
+
+  /* ===== 특징 그리드 ===== */
+  .features{padding:5.5rem 0;background:var(--offwhite);}
+  .feat-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1.4rem;
+  }
+  .feat-card{
+    background:#fff;
+    border:1px solid #e7e2d4;
+    border-radius:8px;
+    padding:1.8rem 1.6rem;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .feat-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 30px -14px rgba(20,19,17,.25);
+    border-color:var(--yellow);
+  }
+  .feat-icon{
+    width:46px;height:46px;
+    background:var(--yellow);
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:1rem;
+    font-size:1.3rem;
+  }
+  .feat-card h3{font-size:1.08rem;margin-bottom:.5rem;}
+  .feat-card p{color:var(--steel);font-size:.92rem;}
+
+  /* ===== 배터리/전동 섹션 ===== */
+  .battery-section{
+    background:linear-gradient(180deg, var(--black), #1c1b18);
+    color:var(--offwhite);
+    padding:6rem 0;
+    position:relative;
+  }
+  .battery-grid{
+    display:grid;grid-template-columns:.9fr 1.1fr;gap:3.5rem;align-items:center;
+  }
+  .battery-section .eyebrow{color:var(--teal);}
+  .battery-section h2{color:var(--offwhite);}
+  .battery-section .section-sub{color:#b8b3a6;margin-bottom:1.6rem;}
+  .battery-visual{
+    border:3px solid var(--offwhite);
+    border-radius:10px;
+    padding:6px;
+    position:relative;
+  }
+  .battery-visual::after{ /* 배터리 캡 */
+    content:"";position:absolute;right:-14px;top:50%;translate:0 -50%;
+    width:10px;height:40px;background:var(--offwhite);border-radius:0 4px 4px 0;
+  }
+  .battery-fill-track{
+    height:60px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden;
+  }
+  .battery-fill{
+    height:100%;width:0%;
+    background:linear-gradient(90deg, var(--teal-deep), var(--teal));
+    border-radius:6px;
+    transition:width 1.8s cubic-bezier(.2,.8,.2,1);
+    display:flex;align-items:center;justify-content:flex-end;
+    padding-right:.8rem;
+  }
+  .battery-fill span{font-family:var(--font-mono);font-weight:700;color:var(--black);}
+  .battery-facts{display:flex;gap:1.5rem;margin-top:1.6rem;flex-wrap:wrap;}
+  .battery-facts div b{display:block;font-family:var(--font-mono);color:var(--teal);font-size:1.3rem;}
+  .battery-facts div span{font-size:.78rem;color:#a9a49a;}
+
+  /* ===== 활용 현장 ===== */
+  .usecases{padding:5.5rem 0;background:var(--offwhite);}
+  .uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+  .uc-card{
+    position:relative;
+    background:var(--black);
+    color:var(--offwhite);
+    border-radius:8px;
+    padding:2.4rem 1.6rem 1.8rem;
+    overflow:hidden;
+  }
+  .uc-card .tag{
+    position:absolute;top:0;left:0;
+    background:var(--yellow);color:var(--black);
+    font-family:var(--font-mono);font-size:.7rem;font-weight:700;
+    padding:.3rem .7rem;
+    border-radius:0 0 8px 0;
+  }
+  .uc-card h3{margin-top:1rem;margin-bottom:.5rem;font-size:1.1rem;}
+  .uc-card p{color:#bdb8ab;font-size:.9rem;}
+  .uc-icon{font-size:1.8rem;margin-bottom:.4rem;}
+
+  /* ===== CTA / 문의 ===== */
+  .cta-section{
+    background:var(--yellow);
+    padding:5.5rem 0;
+    position:relative;
+  }
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+  .cta-section h2{color:var(--black);}
+  .cta-section .section-sub{color:#5a5241;}
+  .form-card{
+    background:var(--black);color:var(--offwhite);
+    padding:2.2rem;border-radius:8px;
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+  .form-card label{display:block;font-size:.78rem;color:#b8b3a6;margin-bottom:.4rem;font-family:var(--font-mono);}
+  .form-card input, .form-card textarea{
+    width:100%;padding:.75rem .8rem;
+    background:#2a2925;border:1px solid #45433c;border-radius:4px;
+    color:var(--offwhite);font-family:var(--font-body);font-size:.95rem;
+  }
+  .form-card input:focus, .form-card textarea:focus{
+    outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal);
+  }
+  .form-card .full{margin-bottom:1rem;}
+  .form-msg{
+    margin-top:1rem;font-family:var(--font-mono);font-size:.85rem;color:var(--teal);
+    min-height:1.2rem;
+  }
+
+  /* ===== 푸터 ===== */
+  footer{
+    background:var(--black);color:#8f8b80;
+    padding:2.6rem 0 2rem;
+    font-size:.85rem;
+  }
+  .footer-inner{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  }
+  footer .logo{opacity:.9;}
+  .back-top{
+    background:none;border:1px solid #45433c;color:#c9c4b8;
+    padding:.5rem 1rem;border-radius:20px;cursor:pointer;
+    font-family:var(--font-mono);font-size:.75rem;
+    transition:border-color .25s ease, color .25s ease;
+  }
+  .back-top:hover{border-color:var(--yellow);color:var(--yellow);}
+
+  /* ===== 반응형 ===== */
+  @media (max-width:920px){
+    nav.main-menu{
+      position:fixed;top:0;right:0;bottom:0;
+      width:min(280px,72%);
+      background:var(--black);
+      transform:translateX(100%);
+      transition:transform .35s ease;
+      padding:6rem 2rem;
+      z-index:150;
+    }
+    nav.main-menu.open{transform:translateX(0);}
+    nav.main-menu ul{flex-direction:column;gap:1.6rem;}
+    .menu-toggle{display:block;}
+    .hero-grid,.intro-grid,.battery-grid,.cta-grid{grid-template-columns:1fr;}
+    .feat-grid{grid-template-columns:1fr 1fr;}
+    .uc-grid{grid-template-columns:1fr;}
+    .stat-cards{grid-template-columns:1fr 1fr;}
+    .rig{height:260px;transform:scale(.8);}
+    .bookmark-nav{display:none;}
+    .form-row{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .feat-grid{grid-template-columns:1fr;}
+    .hero-stats{gap:1.2rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 상단 네비게이션 ===== -->
+<header class="topbar" id="topbar">
+  <div class="container topbar-inner">
+    <div class="logo">
+      <span class="mark">H</span>
+      <span>HDX<span class="sub">HEAVY DUTY X-TRUCKS</span></span>
+    </div>
+    <nav class="main-menu" id="mainMenu">
+      <ul>
+        <li><a href="#overview" class="nav-link">개요</a></li>
+        <li><a href="#specs" class="nav-link">제원</a></li>
+        <li><a href="#features" class="nav-link">특징</a></li>
+        <li><a href="#battery" class="nav-link">전동시스템</a></li>
+        <li><a href="#usecases" class="nav-link">활용현장</a></li>
+        <li><a href="#contact" class="nav-link">문의</a></li>
+      </ul>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">☰</button>
+  </div>
+  <div class="hazard thin"></div>
+</header>
+
+<!-- ===== 책갈피 사이드 네비게이션 ===== -->
+<nav class="bookmark-nav" id="bookmarkNav">
+  <a class="tab" data-target="hero">TOP</a>
+  <a class="tab" data-target="overview">개요</a>
+  <a class="tab" data-target="specs">제원</a>
+  <a class="tab" data-target="features">특징</a>
+  <a class="tab" data-target="battery">전동</a>
+  <a class="tab" data-target="usecases">현장</a>
+  <a class="tab" data-target="contact">문의</a>
+</nav>
+
+<!-- ===== 히어로 ===== -->
+<section class="hero" id="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">HDX ELECTRIC HEAVY LINEUP</span>
+      <h1>16톤의 무게,<em>0의 배출가스.</em></h1>
+      <p class="lead">HDX-EV160은 항만·중공업 현장의 초중량 하역 작업을 위해 설계된 16톤급 전동지게차입니다. 디젤 엔진 없이도 타협하지 않는 힘을 증명합니다.</p>
+      <div class="hero-cta">
+        <a href="#specs" class="btn btn-primary">제원 살펴보기</a>
+        <a href="#contact" class="btn btn-outline">견적 문의</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b data-count="16">0</b><span>정격 하중(톤)</span></div>
+        <div class="stat"><b data-count="0" data-suffix="%">0</b><span>배기가스 배출</span></div>
+        <div class="stat"><b data-count="8">0</b><span>완충 가동시간(h)</span></div>
+      </div>
+    </div>
+    <div class="rig" aria-hidden="true">
+      <div class="ground"></div>
+      <div class="glow"></div>
+      <div class="mast"></div>
+      <div class="carriage"></div>
+      <div class="fork"></div>
+      <div class="body">
+        <div class="wheel left"></div>
+        <div class="wheel right"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="hazard"></div>
+
+<!-- ===== 개요 & 핵심지표 ===== -->
+<section class="intro" id="overview">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-text reveal">
+        <span class="eyebrow">OVERVIEW</span>
+        <h2>현장의 무게중심을 그대로,<br>동력만 바꿨습니다.</h2>
+        <p>HDX-EV160은 기존 디젤 16톤 지게차의 작업 성능을 그대로 계승하면서, 구동계 전체를 전동화한 모델입니다. 저중심 배터리 배치로 안정적인 중량물 리프팅이 가능하며, 실내외 구분 없이 투입할 수 있습니다.</p>
+        <p>대형 항만 터미널, 중공업 야드, 철강·조선 자재 이동 등 고하중·고빈도 작업 환경에서의 연속 가동성을 검증했습니다.</p>
+      </div>
+      <div class="stat-cards reveal reveal-stagger">
+        <div class="stat-card" style="--i:0"><div class="num">16,000<span style="font-size:1rem;">kg</span></div><div class="label">최대 정격 하중</div></div>
+        <div class="stat-card" style="--i:1"><div class="num">6,900<span style="font-size:1rem;">mm</span></div><div class="label">표준 리프트 높이</div></div>
+        <div class="stat-card" style="--i:2"><div class="num">72<span style="font-size:1rem;">dB</span></div><div class="label">운행 소음(저소음)</div></div>
+        <div class="stat-card" style="--i:3"><div class="num">4.2<span style="font-size:1rem;">m</span></div><div class="label">최소 회전 반경</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 제원 ===== -->
+<section class="specs" id="specs">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">SPECIFICATIONS</span>
+      <h2>HDX-EV160 제원</h2>
+      <p class="section-sub">중량물 작업 현장 기준으로 설계된 주요 사양입니다.</p>
+    </div>
+    <table class="spec-table reveal">
+      <tbody>
+        <tr><td>최대 정격 하중</td><td>16,000 <span>kg</span></td></tr>
+        <tr><td>구동 방식</td><td>완전 전동 (AC 모터 듀얼 구동)</td></tr>
+        <tr><td>배터리 용량</td><td>420 <span>kWh, 리튬인산철(LFP)</span></td></tr>
+        <tr><td>표준 리프트 높이</td><td>6,900 <span>mm</span></td></tr>
+        <tr><td>최고 주행 속도</td><td>28 <span>km/h</span></td></tr>
+        <tr><td>최소 회전 반경</td><td>4.2 <span>m</span></td></tr>
+        <tr><td>공차 중량</td><td>24,300 <span>kg</span></td></tr>
+        <tr><td>완속 완충 시간</td><td>4.5 <span>h</span></td></tr>
+        <tr><td>급속 충전(80%)</td><td>1.2 <span>h</span></td></tr>
+        <tr><td>운행 소음</td><td>72 <span>dB(A) 이하</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 특징 ===== -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FEATURES</span>
+      <h2>모든 디테일이 가동시간을 위한 선택</h2>
+      <p class="section-sub">고하중 작업의 안정성과 운전자 피로도까지 함께 설계했습니다.</p>
+    </div>
+    <div class="feat-grid reveal reveal-stagger">
+      <div class="feat-card" style="--i:0"><div class="feat-icon">⚡</div><h3>듀얼 전동 모터</h3><p>전·후륜 독립 구동으로 고하중 상태에서도 균일한 토크를 전달합니다.</p></div>
+      <div class="feat-card" style="--i:1"><div class="feat-icon">🔋</div><h3>LFP 배터리 팩</h3><p>발열에 강한 리튬인산철 셀 구성으로 장시간 연속 가동에도 안정적입니다.</p></div>
+      <div class="feat-card" style="--i:2"><div class="feat-icon">🛡️</div><h3>중량 안정화 섀시</h3><p>저중심 배터리 배치로 고하중 리프팅 시 전복 위험을 낮췄습니다.</p></div>
+      <div class="feat-card" style="--i:3"><div class="feat-icon">🔇</div><h3>저소음·저진동</h3><p>디젤 대비 소음을 대폭 낮춰 실내 작업장에서도 투입할 수 있습니다.</p></div>
+      <div class="feat-card" style="--i:4"><div class="feat-icon">📟</div><h3>스마트 콕핏</h3><p>배터리 잔량, 하중, 정비 알림을 한 화면에서 확인하는 통합 계기판.</p></div>
+      <div class="feat-card" style="--i:5"><div class="feat-icon">🧰</div><h3>간편 정비 구조</h3><p>엔진오일·연료 계통이 없어 정기 정비 항목과 비용을 크게 줄였습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 전동 시스템 / 배터리 ===== -->
+<section class="battery-section" id="battery">
+  <div class="container">
+    <div class="battery-grid">
+      <div class="reveal">
+        <span class="eyebrow">POWER SYSTEM</span>
+        <h2>충전 4.5시간,<br>가동 8시간 이상.</h2>
+        <p class="section-sub">현장 근무 시간에 맞춘 완속·급속 충전 옵션을 함께 제공합니다.</p>
+        <div class="battery-facts">
+          <div><b>420kWh</b><span>배터리 용량</span></div>
+          <div><b>1.2h</b><span>급속 충전(80%)</span></div>
+          <div><b>8h+</b><span>완충 시 연속 가동</span></div>
+        </div>
+      </div>
+      <div class="battery-visual reveal">
+        <div class="battery-fill-track">
+          <div class="battery-fill" id="batteryFill"><span>0%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="hazard"></div>
+
+<!-- ===== 활용 현장 ===== -->
+<section class="usecases" id="usecases">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">WHERE IT WORKS</span>
+      <h2>고하중이 일상인 현장에</h2>
+      <p class="section-sub">HDX-EV160이 실제로 투입되는 대표 작업 환경입니다.</p>
+    </div>
+    <div class="uc-grid reveal reveal-stagger">
+      <div class="uc-card" style="--i:0"><span class="tag">PORT</span><div class="uc-icon">⚓</div><h3>항만 컨테이너 터미널</h3><p>고빈도 상·하차 작업에서도 안정적인 전력 공급으로 연속 가동을 지원합니다.</p></div>
+      <div class="uc-card" style="--i:1"><span class="tag">STEEL</span><div class="uc-icon">🏭</div><h3>철강·조선 야적장</h3><p>중량 코일·후판 이송에 필요한 고토크를 정숙하게 전달합니다.</p></div>
+      <div class="uc-card" style="--i:2"><span class="tag">LOGISTICS</span><div class="uc-icon">📦</div><h3>대형 물류센터</h3><p>실내 저소음 운행이 가능해 24시간 물류 거점에도 적합합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA / 문의 ===== -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-grid">
+      <div class="reveal">
+        <span class="eyebrow" style="color:#5a5241;">GET IN TOUCH</span>
+        <h2>현장 맞춤 견적,<br>지금 문의하세요.</h2>
+        <p class="section-sub">투입 현장과 작업 조건을 알려주시면 최적의 사양을 안내해 드립니다. (본 페이지는 실습용 예제로, 실제 전송 기능은 없습니다.)</p>
+      </div>
+      <form class="form-card reveal" id="contactForm">
+        <div class="form-row">
+          <div>
+            <label for="name">담당자명</label>
+            <input id="name" type="text" placeholder="홍길동" required>
+          </div>
+          <div>
+            <label for="company">회사명</label>
+            <input id="company" type="text" placeholder="HDX 물류(주)" required>
+          </div>
+        </div>
+        <div class="full">
+          <label for="phone">연락처</label>
+          <input id="phone" type="tel" placeholder="010-0000-0000" required>
+        </div>
+        <div class="full">
+          <label for="message">문의 내용</label>
+          <textarea id="message" rows="3" placeholder="투입 현장, 필요 수량 등을 적어주세요."></textarea>
+        </div>
+        <button type="submit" class="btn btn-teal" style="width:100%;justify-content:center;">문의 보내기</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="logo">
+      <span class="mark">H</span>
+      <span>HDX<span class="sub">HEAVY DUTY X-TRUCKS</span></span>
+    </div>
+    <p>© 2026 HDX Heavy Equipment. 본 페이지는 교육 실습용 예제입니다.</p>
+    <button class="back-top" id="backTop">TOP ▲</button>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 상단바 스크롤 시 축소 ---------- */
+  const topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', function(){
+    topbar.classList.toggle('shrink', window.scrollY > 40);
+  });
+
+  /* ---------- 모바일 메뉴 토글 ---------- */
+  const menuToggle = document.getElementById('menuToggle');
+  const mainMenu = document.getElementById('mainMenu');
+  menuToggle.addEventListener('click', function(){
+    mainMenu.classList.toggle('open');
+  });
+  mainMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ mainMenu.classList.remove('open'); });
+  });
+
+  /* ---------- 책갈피 네비게이션: 클릭 시 스크롤 ---------- */
+  const bookmarkTabs = document.querySelectorAll('.bookmark-nav .tab');
+  bookmarkTabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      const target = document.getElementById(tab.dataset.target);
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  /* ---------- 스크롤스파이: 현재 섹션 하이라이트 (책갈피 + 상단메뉴 공통) ---------- */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const spyObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+
+        bookmarkTabs.forEach(function(tab){
+          tab.classList.toggle('active', tab.dataset.target === id);
+        });
+        navLinks.forEach(function(link){
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(function(sec){ spyObserver.observe(sec); });
+
+  /* ---------- 스크롤 리빌 애니메이션 ---------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver(function(entries, obs){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(function(el){ revealObserver.observe(el); });
+
+  /* ---------- 히어로 숫자 카운트업 ---------- */
+  const counters = document.querySelectorAll('[data-count]');
+  const counterObserver = new IntersectionObserver(function(entries, obs){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        animateCount(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  counters.forEach(function(el){ counterObserver.observe(el); });
+
+  function animateCount(el){
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1200;
+    const start = performance.now();
+    function tick(now){
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(target * eased);
+      el.textContent = value + suffix;
+      if(progress < 1){ requestAnimationFrame(tick); }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ---------- 배터리 충전 애니메이션 ---------- */
+  const batteryFill = document.getElementById('batteryFill');
+  const batteryObserver = new IntersectionObserver(function(entries, obs){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        batteryFill.style.width = '86%';
+        setTimeout(function(){ batteryFill.querySelector('span').textContent = '86%'; }, 900);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  batteryObserver.observe(document.querySelector('.battery-visual'));
+
+  /* ---------- 문의 폼 (실습용, 실제 전송 없음) ---------- */
+  const contactForm = document.getElementById('contactForm');
+  const formMsg = document.getElementById('formMsg');
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    formMsg.textContent = '문의가 접수되었습니다. (실습 페이지: 실제 전송되지 않습니다)';
+    contactForm.reset();
+  });
+
+  /* ---------- 맨 위로 ---------- */
+  document.getElementById('backTop').addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+</script>
+</body>
+</html>
